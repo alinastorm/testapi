@@ -1,24 +1,14 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
-
-
-export interface Idata {
-  name: string;
-}
-
+@Injectable()
 export class ApiService {
 
-
-public data: Idata[] = [
-{name: 'USD'},
-{name: 'EUR'},
-{name: 'RUB'}
-];
-  constructor() { }
-
-
+  // tslint:disable-next-line: variable-name
+  constructor(private _http: HttpClient) {
+   }
 public getAll() {
-
-  return this.data;
+  return this._http.get('https://jsonplaceholder.typicode.com/users');
 }
 }
