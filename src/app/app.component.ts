@@ -24,7 +24,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
     this.findControl.valueChanges.pipe(
-      debounceTime(2000),
+      filter(value => value.length > 1),
+      debounceTime(1000),
       switchMap(value => this.apiService.iWontItAll(value)))
       .subscribe((users) => this.users = users.items);
 
