@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     this.findControl.valueChanges.pipe(
       filter(value => value.length > 1),
       debounceTime(1000),
-      switchMap(value => this.apiService.iWontItAll(value)))
+      switchMap(value => this.apiService.iWantItAll(value)))
       .subscribe((users) => this.users = users.items);
 
   }

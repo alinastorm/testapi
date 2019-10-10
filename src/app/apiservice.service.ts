@@ -18,7 +18,7 @@ export class ApiService {
   }
 
 
-  public iWontItAll(target: string): Observable<TypeGitSearch> {
+  public iWantItAll(target: string): Observable<TypeGitSearch> {
     const url = `https://api.github.com/search/users?q=${target}`;
 
     return this._http.get<TypeGitSearch>(url);
