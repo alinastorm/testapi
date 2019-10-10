@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnChanges {
+export class AppComponent implements OnInit {
   title = 'api';
 
   public users;
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    console.log(this.findControl);
+
     this.findControl.valueChanges.pipe(
       debounceTime(2000),
       switchMap(value => this.apiService.iWontItAll(value)))
@@ -30,9 +30,5 @@ export class AppComponent implements OnInit, OnChanges {
 
   }
 
-  ngOnChanges(): void {
-
-    console.log(this.findControl);
-  }
 
 }
