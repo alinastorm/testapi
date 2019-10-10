@@ -1,17 +1,38 @@
-import { Component, OnInit} from '@angular/core';
-import { ApiService} from './apiservice.service';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { ApiService } from './apiservice.service';
+import { debounceTime, switchMap, filter } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
   title = 'api';
-public users;
-  constructor(private data: ApiService) {
+
+  public users;
+  public login: string;
+
+  findControl = new FormControl();
+
+  constructor(private apiService: ApiService) {
   }
-ngOnInit(): void {
-this.data.getAll().subscribe(users => this.users = users);
-}
+
+  ngOnInit(): void {
+    console.log(this.findControl);
+    this.findControl.valueChanges.pipe(
+      debounceTime(2000),
+      switchMap(value => this.apiService.iWontItAll(value)))
+      .subscribe((users) => this.users = users.items);
+
+  }
+
+  ngOnChanges(): void {
+
+    console.log(this.findControl);
+  }
+
 }

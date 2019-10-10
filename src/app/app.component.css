@@ -1,0 +1,19 @@
+.example-form-field {
+  width: 500px;
+  
+  height: 250px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+
+.cards-group{
+  margin-top: 200px;
+}
+.example-card{
+  width: 300px;
+  float: left;
+}
