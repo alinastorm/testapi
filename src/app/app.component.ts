@@ -14,7 +14,7 @@ import { of } from 'rxjs';
 export class AppComponent {
   public apiServiceLoginStatus = false;
   public apiServiceLoginToken;
-  public goodResults = [];
+  public results = [];
   public badResults = [];
 
 
@@ -30,6 +30,14 @@ export class AppComponent {
   }
 
   public tests(token) {
+    // this.results.push(
+    //   {
+    //     action: '1'
+    //   },
+    //   {
+    //     action: '2'
+    //   });
+
 
 
     allcommands.forEach(element => {
@@ -37,21 +45,30 @@ export class AppComponent {
       // tslint:disable-next-line: max-line-length
       this.apiService.connect(element.requestData.action, element.async, token, element.requestData).subscribe((value: any) => {
 
-        this.goodResults.push(
-          {
-            action: element.requestData.action,
-            id_query: element.requestData.id_query,
-            status: value.status,
+        this.results.push(
+          // {
+          //   action: element.requestData.action,
+          //   // id_query: element.requestData.id_query,
+          //   // status: value.status,
 
-          });
+          // }
+          {
+            action: '1'
+          },
+          {
+            action: '2'
+          }
+        );
       }
         , (err) => {
 
           this.badResults.push({
             action: element.requestData.action,
-            id_query: element.requestData.id_query,
-            err: err.error.text
+            // id_query: element.requestData.id_query,
+            // status: err.error.text
           });
+
+
         }
 
       );

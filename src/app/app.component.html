@@ -1,3 +1,4 @@
+
 <ng-container *ngIf="!apiServiceLoginStatus; else elseTemplate">
   <div class="container">
     <div class="1">
@@ -20,26 +21,9 @@
 
 <ng-template #elseTemplate>
 
-  <mat-list role="list1">
-    <mat-list-item role="listitem" *ngFor="let item of goodResults">
-      <mat-icon>done</mat-icon>
-      ACTION: {{item.action}}(id: {{item.id_query}} )
-      {{item.value}}
-    </mat-list-item>
-
-  </mat-list>
-
-
-  <mat-list role="list2">
-    <mat-list-item role="listitem" *ngFor="let item of badResults">
-      <mat-icon>error</mat-icon>
-      ACTION: {{item.action}}
-      (id: {{item.id_query}} )
-      <p>{{item.err}}</p>
-
-
-
-
-    </mat-list-item>
-  </mat-list>
+  <p *ngFor="let item of results">
+      results
+    </p>
+  <app-table-expandable-rows-example [results]="results"></app-table-expandable-rows-example>
 </ng-template>
+

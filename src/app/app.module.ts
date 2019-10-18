@@ -6,10 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableExpandableRowsExample } from './table/table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    TableExpandableRowsExample,
 
   ],
   imports: [
