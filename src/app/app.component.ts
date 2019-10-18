@@ -1,35 +1,63 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ApiService } from './apiservice.service';
-import { debounceTime, switchMap, filter } from 'rxjs/operators';
+import { debounceTime, switchMap, filter, catchError } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-
-
+import { SHA1, enc } from 'crypto-js';
+import { allcommands } from './commands';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = 'api';
+export class AppComponent {
+  public apiServiceLoginStatus = false;
+  public apiServiceLoginToken;
+  public goodResults = [];
+  public badResults = [];
 
-  public users;
-  public login: string;
 
-  findControl = new FormControl();
+  constructor(private apiService: ApiService) { }
 
-  constructor(private apiService: ApiService) {
+
+  public login(login, password) {
+    const hashedLogPass = SHA1((login.toLowerCase() + password)).toString(enc.Base64);
+    this.apiService.login(hashedLogPass).subscribe((value) => {
+      this.apiServiceLoginStatus = value.status;
+      this.tests(value.token);
+    });
   }
 
-  ngOnInit(): void {
+  public tests(token) {
 
-    this.findControl.valueChanges.pipe(
-      filter(value => value.length > 1),
-      debounceTime(1000),
-      switchMap(value => this.apiService.iWantItAll(value)))
-      .subscribe((users) => this.users = users.items);
+
+    allcommands.forEach(element => {
+
+      // tslint:disable-next-line: max-line-length
+      this.apiService.connect(element.requestData.action, element.async, token, element.requestData).subscribe((value: any) => {
+
+        this.goodResults.push(
+          {
+            action: element.requestData.action,
+            id_query: element.requestData.id_query,
+            status: value.status,
+
+          });
+      }
+        , (err) => {
+
+          this.badResults.push({
+            action: element.requestData.action,
+            id_query: element.requestData.id_query,
+            err: err.error.text
+          });
+        }
+
+      );
+    });
+
 
   }
-
-
 }
+

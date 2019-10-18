@@ -1,19 +1,13 @@
-.example-form-field {
-  width: 500px;
+
+  .container{
+    margin: 100px auto ;
+    width: 200px;
+    height: 160px;
+    background: rgb(189, 190, 243);
+    padding: 20px;
+    color: white;
   
-  height: 250px;
-  position: absolute;
-  top: 20px;
-  right: 0;
-  left: 0;
-  margin: auto;
-}
-
-
-.cards-group{
-  margin-top: 200px;
-}
-.example-card{
-  width: 300px;
-  float: left;
-}
+   }
+   /* .button{
+    margin: 25px auto auto 50px;
+   } */

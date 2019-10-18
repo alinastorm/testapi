@@ -1,28 +1,61 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { throwError, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
-export interface TypeGitSearch {
-  'total_count': number;
-  'incomplete_results': false;
-  'items': [
-    { login: string; }
-  ];
+
+
+export interface HttpResponseLogin {
+  status: true;
+  token: string;
 }
+
 @Injectable()
 export class ApiService {
-  public serchInput: string;
+
+
+  // tslint:disable-next-line: variable-name
+  private _url = `http://headnet.by:7110`;
+  private handleError;
 
   // tslint:disable-next-line: variable-name
   constructor(private _http: HttpClient) {
   }
 
 
-  public iWantItAll(target: string): Observable<TypeGitSearch> {
-    const url = `https://api.github.com/search/users?q=${target}`;
+  public login(hashlp) {
+    const headers: HttpHeaders = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
 
-    return this._http.get<TypeGitSearch>(url);
+    const body = {
+      async: false,
+      action: 'login',
+      hashlp
+    };
+
+    return this._http.post<HttpResponseLogin>(this._url, JSON.stringify(body), { headers });
 
   }
 
+  public connect(method, async, token, data) {
+    const headers: HttpHeaders = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+
+    const body = {
+      async,
+      token,
+      data: [data]
+    };
+
+    // tslint:disable-next-line: no-conditional-assignment
+    return this._http.post<HttpResponseLogin>(this._url, JSON.stringify(body), { headers });
+
+
+
+
+  }
+
+
 }
+

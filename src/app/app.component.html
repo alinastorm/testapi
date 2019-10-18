@@ -1,24 +1,45 @@
-<div>
-
-  <mat-form-field class="example-form-field">
-    <div class="">
-        
+<ng-container *ngIf="!apiServiceLoginStatus; else elseTemplate">
+  <div class="container">
+    <div class="1">
+      <mat-form-field>
+        <input #Login matInput placeholder="Login" value="test">
+      </mat-form-field>
     </div>
-    <input matInput placeholder="Enter GitHub user name 'angulartist'" [formControl]="findControl">
-  </mat-form-field>
-</div>
-<div class="cards-group">
-  <mat-card class="example-card" *ngFor="let item of users">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{item.login}}</mat-card-title>
-      <mat-card-subtitle>{{item.type}}</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="{{item.avatar_url}}" alt="Photo of">
-    <mat-card-content>
-    </mat-card-content>
-    <mat-card-actions>
-      <a href="{{item.html_url}}" class="button">Open</a>
+    <div class="2">
+      <mat-form-field>
+        <input #Password matInput placeholder="Password" value="Qwerty123456">
+      </mat-form-field>
+    </div>
+    <div class="button">
+      <button mat-button (click)="login(Login.value,Password.value)">login:{{apiServiceLoginStatus}}</button>
+    </div>
+  </div>
 
-    </mat-card-actions>
-  </mat-card>
+</ng-container>
+
+
+<ng-template #elseTemplate>
+
+  <mat-list role="list1">
+    <mat-list-item role="listitem" *ngFor="let item of goodResults">
+      <mat-icon>done</mat-icon>
+      ACTION: {{item.action}}(id: {{item.id_query}} )
+      {{item.value}}
+    </mat-list-item>
+
+  </mat-list>
+
+
+  <mat-list role="list2">
+    <mat-list-item role="listitem" *ngFor="let item of badResults">
+      <mat-icon>error</mat-icon>
+      ACTION: {{item.action}}
+      (id: {{item.id_query}} )
+      <p>{{item.err}}</p>
+
+
+
+
+    </mat-list-item>
+  </mat-list>
+</ng-template>
