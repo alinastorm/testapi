@@ -13,13 +13,9 @@ export interface HttpResponseLogin {
 
 @Injectable()
 export class ApiService {
-
-
-  // tslint:disable-next-line: variable-name
   private _url = `http://headnet.by:7110`;
   private handleError;
 
-  // tslint:disable-next-line: variable-name
   constructor(private _http: HttpClient) {
   }
 
@@ -27,33 +23,24 @@ export class ApiService {
   public login(hashlp) {
     const headers: HttpHeaders = new HttpHeaders();
     headers.set('Content-Type', 'application/json');
-
     const body = {
       async: false,
       action: 'login',
       hashlp
     };
-
     return this._http.post<HttpResponseLogin>(this._url, JSON.stringify(body), { headers });
-
   }
 
   public connect(method, async, token, data) {
     const headers: HttpHeaders = new HttpHeaders();
     headers.set('Content-Type', 'application/json');
-
     const body = {
       async,
       token,
       data: [data]
     };
 
-    // tslint:disable-next-line: no-conditional-assignment
     return this._http.post<HttpResponseLogin>(this._url, JSON.stringify(body), { headers });
-
-
-
-
   }
 
 

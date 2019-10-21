@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, AfterViewChecked, OnChanges, DoCheck } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 // tslint:disable-next-line: no-conflicting-lifecycle
@@ -20,23 +21,23 @@ import { Observable } from 'rxjs';
 
 
 // tslint:disable-next-line: component-class-suffix
-export class TableExpandableRowsExample {
+export class TableExpandableRowsExample implements OnInit, DoCheck {
   @Input()
   public results;
 
-  // dataSource1 = [
-  //   {
-  //     action: '1'
-  //   },
-  //   {
-  //     action: '2'
-  //   }];
-  columnsToDisplay = ['action'];
+  dataSource: MatTableDataSource<{ action: string }>;
+
+  columnsToDisplay = ['action', 'id_query', 'status', 'statusText'];
   expandedElement: PeriodicElement | null;
-  ngOninit() {
-    // this.paginator._changePageSize(this.paginator.pageSize);
-    // console.log(this.results[0]);
+
+  ngOnInit() {
+    this.dataSource = new MatTableDataSource(this.results);
+
   }
+  ngDoCheck() {
+    this.dataSource._updateChangeSubscription();
+  }
+
 
 }
 
