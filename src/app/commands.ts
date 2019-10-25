@@ -9,9 +9,9 @@
 //   reqPars: [
 //     {
 //       pathValue: 'reqData.match',
-//       defValue: 'up',
 //       readStorKey: 'user',
-//       readStorePathValue: ''
+//       readStorePathValue: '',
+//       defValue: 'up',
 //     },
 //   ],
 //   respPars: [
@@ -65,9 +65,9 @@ export const allcommands = [
     reqPars: [
       {
         pathValue: 'reqData.match',
-        defValue: 'up',
         readStorKey: 'user',
-        readStorePathValue: ''
+        readStorePathValue: '',
+        defValue: 'up',
       },
     ],
     respPars: [
@@ -84,23 +84,23 @@ export const allcommands = [
       {
         // блок редактирования stor ключа  stor ключем
         editStorKeyOfStorKey: {
-          StorKey: 'users',
-          editPathValue: 'users[3]',
+          StorKey: '',
+          editPathValue: '',
 
-          readStorKey: 'test',
-          readStorPath: 'users',
-          readStorDefValue: '333',
+          readStorKey: '',
+          readStorPath: '',
+          readStorDefValue: '',
         }
       },
       {
         // блок редактирования stor ключа respom
         editStorKeyResp: {
 
-          StorKey: 'users',
-          editPathValue: 'users[2]',
+          StorKey: '',
+          editPathValue: '',
 
-          respPathValue: 'data.[0].users[0].id',
-          respDefValue: 'editStorKeyResp',
+          respPathValue: '',
+          respDefValue: '',
 
         }
       }
@@ -108,38 +108,58 @@ export const allcommands = [
 
   },
 
-  // {
-  //   description: '8.2 getUsers Предназначена для получения детальной информации о пользователях по идентификаторам. ',
-  //   async: true,
-  //   reqData: {
-  //     id_query: 802,
-  //     action: 'getUsers',
-  //     users: ''
-  //   },
-  //   reqPars: [
-  //     {
-  //       pathValue: 'reqData.users',
-  //       defValue: 'up2',
-  //       readStorKey: 'user',
-  //       readStorePathValue: 'data[0].users'
-  //     },
-  //   ],
-  //   respPars: [
-  //     {
-  //       path: '.data[0].users[0].id',
-  //       // блок проверки
-  //       checkType: '',
-  //       checkValue: '',
-  //       checkStorKey: '',
-  //       // блок добавления к значению
-  //       addStorKey: 'users',
-  //       addStorDefValue: '',
-  //       // блок записи значения
-  //       writeStorKey: 'users',
-  //       writeDefStorValue: '',
-  //     },
-  //   ],
-  // },
+  {
+    description: '8.2 getUsers Предназначена для получения детальной информации о пользователях по идентификаторам. ',
+    async: true,
+    reqData: {
+      id_query: 802,
+      action: 'getUsers',
+      users: ''
+    },
+    reqPars: [
+      {
+        pathValue: 'reqData.users',
+        readStorKey: 'users',
+        readStorePathValue: 'users[0]',
+        defValue: 'up2',
+      },
+    ],
+    respPars: [
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '',
+          PathStorKey: '',
+          PathRespValue: '',
+          DefValue: '',
+        }
+      },
+
+      {
+        // блок редактирования stor ключа  stor ключем
+        editStorKeyOfStorKey: {
+          StorKey: '',
+          editPathValue: '',
+
+          readStorKey: '',
+          readStorPath: '',
+          readStorDefValue: '',
+        }
+      },
+      {
+        // блок редактирования stor ключа respom
+        editStorKeyResp: {
+
+          StorKey: '',
+          editPathValue: '',
+
+          respPathValue: '',
+          respDefValue: '',
+
+        }
+      }
+    ]
+  },
   // {
   //   description: '8.3 getContacts Предназначена для получения списка контактов текущего пользователя. ',
   //   async: true,
