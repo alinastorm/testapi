@@ -19,6 +19,7 @@
 //       // блок добавления ключа
 //       addStorKey: {
 //         StorKey: 'users',
+//         SructureKeyValue: '{"a":[{"c":3},{"e":5}]}',
 //         PathStorKey: 'users[0]',
 //         PathRespValue: 'data[0].users[0].id',
 //         DefValue: 'addStorKey',
@@ -67,43 +68,21 @@ export const allcommands = [
         pathValue: 'reqData.match',
         readStorKey: 'user',
         readStorePathValue: '',
-        defValue: 'up',
+        defValue: 'dmurk',
       },
     ],
     respPars: [
       {
         // блок добавления ключа
         addStorKey: {
-          StorKey: 'users',
+          StorKey: '801 users',
           PathStorKey: 'users[0]',
           PathRespValue: 'data[0].users[0].id',
           DefValue: 'addStorKey',
         }
       },
 
-      {
-        // блок редактирования stor ключа  stor ключем
-        editStorKeyOfStorKey: {
-          StorKey: '',
-          editPathValue: '',
 
-          readStorKey: '',
-          readStorPath: '',
-          readStorDefValue: '',
-        }
-      },
-      {
-        // блок редактирования stor ключа respom
-        editStorKeyResp: {
-
-          StorKey: '',
-          editPathValue: '',
-
-          respPathValue: '',
-          respDefValue: '',
-
-        }
-      }
     ]
 
   },
@@ -119,8 +98,8 @@ export const allcommands = [
     reqPars: [
       {
         pathValue: 'reqData.users',
-        readStorKey: 'users',
-        readStorePathValue: 'users[0]',
+        readStorKey: '801 users',
+        readStorePathValue: 'users',
         defValue: 'up2',
       },
     ],
@@ -128,117 +107,197 @@ export const allcommands = [
       {
         // блок добавления ключа
         addStorKey: {
-          StorKey: '',
-          PathStorKey: '',
-          PathRespValue: '',
-          DefValue: '',
+          StorKey: '802 getUsers',
+          PathStorKey: 'users',
+          PathRespValue: 'data[0].users',
+          DefValue: 'DEFgetContacts',
         }
       },
-
-      {
-        // блок редактирования stor ключа  stor ключем
-        editStorKeyOfStorKey: {
-          StorKey: '',
-          editPathValue: '',
-
-          readStorKey: '',
-          readStorPath: '',
-          readStorDefValue: '',
-        }
-      },
-      {
-        // блок редактирования stor ключа respom
-        editStorKeyResp: {
-
-          StorKey: '',
-          editPathValue: '',
-
-          respPathValue: '',
-          respDefValue: '',
-
-        }
-      }
     ]
   },
-  // {
-  //   description: '8.3 getContacts Предназначена для получения списка контактов текущего пользователя. ',
-  //   async: true,
-  //   reqData: {
-  //     id_query: 803,
-  //     action: 'getContacts',
-  //   },
-  //   response: {
-  //     id_query: 803,
-  //     status: true,
-  //     contacts: 'wContacts',
-  //     ofStorName: {},
-  //     inStorName: {},
-  //   }
-  // },
-  // {
-  //   description: '8.4 setContacts Предназначена для замены списка контактов текущего пользователя.  ',
-  //   async: true,
-  //   reqData: {
-  //     id_query: 804,
-  //     action: 'setContacts',
-  //     users: ['A065556E-BCBF-443A-AF7A-D0CAD8255BB0', '7CFA2285-0677-4A76-AB69-9606D9240854']
-  //   },
-  //   response: {
-  //     id_query: 804,
-  //     status: true,
-  //     ofStorName: {},
-  //     inStorName: {},
+  {
+    description: '8.3 getContacts Предназначена для получения списка контактов текущего пользователя. ',
+    async: true,
+    reqData: {
+      id_query: 803,
+      action: 'getContacts',
+    },
+    reqPars: [
 
-  //   }
-  // },
-  // {
-  //   description: '8.5 addContact Добавляет идентификатор пользователя в основной список контактов текущего пользователя.  ',
-  //   async: true,
-  //   reqData: {
-  //     id_query: 805,
-  //     action: 'addContact',
-  //     users: ['A065556E-BCBF-443A-AF7A-D0CAD8255BB0', '7CFA2285-0677-4A76-AB69-9606D9240854']
-  //   },
-  //   response: {
-  //     id_query: 805,
-  //     status: true,
-  //     ofStorName: {},
-  //     inStorage: {},
+    ],
+    respPars: [
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '803 getContacts',
+          SructureKeyValue: '',
+          PathStorKey: 'contacts',
+          PathRespValue: 'data[0].contacts',
+          DefValue: 'DEFgetContacts',
+        }
+      },
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '803 wUsersGroup',
+          SructureKeyValue: '{"id":"", "parent": "", "isParent": false, "name": "Test" }',
+          PathRespValue: 'data[0].contacts',
+          PathStorKey: 'users',
+          DefValue: 'DEFgetContacts',
+        }
+      },
+    ]
+  },
+  {
+    description: '8.4 setContacts Предназначена для замены списка контактов текущего пользователя.  ',
+    async: true,
+    reqData: {
+      id_query: 804,
+      action: 'setContacts',
+      users: ['A065556E-BCBF-443A-AF7A-D0CAD8255BB0', '7CFA2285-0677-4A76-AB69-9606D9240854']
+    },
+    reqPars: [
 
-  //   }
-  // },
-  // {
-  //   description: '8.6 removeContact Удаляет идентификатор пользователя из основного списка контактов текущего пользователя.   ',
-  //   async: true,
-  //   reqData: {
-  //     id_query: 806,
-  //     action: 'removeContact',
-  //     users: ['A065556E-BCBF-443A-AF7A-D0CAD8255BB0', '7CFA2285-0677-4A76-AB69-9606D9240854']
-  //   },
-  //   response: {
-  //     id_query: 806,
-  //     status: true,
-  //     ofStorage: {},
-  //     inStorage: {},
+    ],
+    respPars: [
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '804 setContacts',
+          PathStorKey: 'status',
+          PathRespValue: 'data[0].status',
+          DefValue: 'DEFgetContacts',
+        }
+      },
+    ]
+  },
+  {
+    description: '8.5 addContact Добавляет идентификатор пользователя в основной список контактов текущего пользователя.  ',
+    async: true,
+    reqData: {
+      id_query: 805,
+      action: 'addContact',
+      user: ''
+    },
+    reqPars: [
+      {
+        pathValue: 'reqData.user',
+        readStorKey: '801 users',
+        readStorePathValue: 'users[0]',
+        defValue: 'addContact',
+      },
 
-  //   }
-  // },
-  // {
-  //   description: '8.7 enumUsersGroups Предназначена для получения доступных групп пользователей.    ',
-  //   async: true,
-  //   reqData: {
-  //     id_query: 807,
-  //     action: 'enumUsersGroups',
-  //     users: ['A065556E-BCBF-443A-AF7A-D0CAD8255BB0', '7CFA2285-0677-4A76-AB69-9606D9240854']
-  //   },
-  //   response: {
-  //     id_query: 807,
-  //     status: true,
-  //     groups: 'array of wUsersGroup ',
-  //     ofStorName: {},
-  //     inStorName: {},
-  //   }
-  // },
+    ],
+    respPars: [
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '805 addContact',
+          PathStorKey: 'status',
+          PathRespValue: 'data[0].status',
+          DefValue: 'addContact',
+        }
+      },
+    ]
+  },
+  {
+    description: 'Проверка 8.5 addContact с помощью 8.3 getContacts Предназначена для получения списка контактов текущего пользователя. ',
+    async: true,
+    reqData: {
+      id_query: 806,
+      action: 'getContacts',
+    },
+    reqPars: [
+
+    ],
+    respPars: [
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '806 getContacts',
+          PathStorKey: 'contacts',
+          PathRespValue: 'data[0].contacts',
+          DefValue: 'DEFgetContacts',
+        }
+      },
+    ]
+  },
+
+  {
+    description: '8.6 removeContact Удаляет идентификатор пользователя из основного списка контактов текущего пользователя.   ',
+    async: true,
+    reqData: {
+      id_query: 807,
+      action: 'removeContact',
+      user: ''
+    },
+    reqPars: [
+      {
+        pathValue: 'reqData.user',
+        readStorKey: '801 users',
+        readStorePathValue: 'users[0]',
+        defValue: 'addContact',
+      },
+
+    ],
+    respPars: [
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '807 removeContact',
+          PathStorKey: 'status',
+          PathRespValue: 'data[0].status',
+          DefValue: 'DEFremoveContact',
+        }
+      },
+    ]
+  },
+  {
+    // tslint:disable-next-line: max-line-length
+    description: 'Проверка 8.6 removeContact с помощью 8.3 getContacts Предназначена для получения списка контактов текущего пользователя. ',
+    async: true,
+    reqData: {
+      id_query: 808,
+      action: 'getContacts',
+    },
+    reqPars: [
+
+    ],
+    respPars: [
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '808 getContacts3',
+          PathStorKey: 'contacts',
+          PathRespValue: 'data[0].contacts',
+          DefValue: 'DEFgetContacts',
+        }
+      },
+    ]
+  },
+  {
+    description: '8.7 enumUsersGroups Предназначена для получения доступных групп пользователей.    ',
+    async: true,
+    reqData: {
+      id_query: 809,
+      action: 'enumUsersGroups'
+
+    },
+    reqPars: [
+
+    ],
+    respPars: [
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '809 enumUsersGroups',
+          PathStorKey: 'groups',
+          PathRespValue: 'data[0].groups',
+          DefValue: 'enumUsersGroups',
+        }
+      },
+    ]
+  },
   // {
   //   description: '8.8 getUsersGroup Предназначена для получения состава и описания группы пользователей.     ',
   //   async: true,
@@ -247,30 +306,50 @@ export const allcommands = [
   //     action: 'getUsersGroup',
   //     users: ['A065556E-BCBF-443A-AF7A-D0CAD8255BB0', '7CFA2285-0677-4A76-AB69-9606D9240854']
   //   },
-  //   response: {
-  //     id_query: 808,
-  //     status: true,
-  //     groups: ' wUsersGroup  ',
-  //     ofStorName: {},
-  //     inStorage: {},
-  //   }
+  //   reqPars: [
+
+  //   ],
+  //   respPars: [
+  //     {
+  //       // блок добавления ключа
+  //       addStorKey: {
+  //         StorKey: 'enumUsersGroups',
+  //         PathStorKey: 'groups',
+  //         PathRespValue: 'data[0].groups',
+  //         DefValue: 'enumUsersGroups',
+  //       }
+  //     },
+  //   ]
   // },
-  // {
-  //   description: '8.9 setUsersGroup Создает группу пользователей. Назначает состав группы пользователей.    ',
-  //   async: true,
-  //   reqData: {
-  //     id_query: 809,
-  //     action: 'setUsersGroup',
-  //     users: ['A065556E-BCBF-443A-AF7A-D0CAD8255BB0', '7CFA2285-0677-4A76-AB69-9606D9240854']
-  //   },
-  //   response: {
-  //     id_query: 809,
-  //     status: true,
-  //     groups: '  GUID (usersGroups)   ',
-  //     ofStorage: {},
-  //     inStorage: {},
-  //   }
-  // },
+  {
+    description: '8.9 setUsersGroup Создает группу пользователей. Назначает состав группы пользователей.    ',
+    async: true,
+    reqData: {
+      id_query: 810,
+      action: 'setUsersGroup',
+      group: ''
+    },
+    reqPars: [
+      {
+              pathValue: 'reqData.group',
+              readStorKey: '803 wUsersGroup  ',
+              readStorePathValue: '',
+              defValue: 'up',
+            },
+
+    ],
+    respPars: [
+      {
+        // блок добавления ключа
+        addStorKey: {
+          StorKey: '810 enumUsersGroups',
+          PathStorKey: 'groups',
+          PathRespValue: 'data[0].groups',
+          DefValue: 'enumUsersGroups',
+        }
+      },
+    ]
+  },
   // {
   // tslint:disable-next-line: max-line-length
   //   description: '8.10 deleteUsersGroup Удаляет группу пользователей, все подчиненные группы пользователей и состав всех удаляемых групп. ',

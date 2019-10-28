@@ -17,8 +17,7 @@ export class AppComponent {
   public apiServiceLoginStatus = false;
   public apiServiceLoginToken;
   public results = [];
-
-
+  public stream$: Observable<any> = new Observable();
 
 
   constructor(private apiService: ApiService) { }
@@ -32,16 +31,16 @@ export class AppComponent {
     });
   }
 
-  public runTests(token) {
+  public async runTests(token) {
     const token2 = token;
-    localStorage.clear();
+    // localStorage.clear();
 
     for (const elementAllCommands of allcommands) {
 
-      this.go(elementAllCommands, token2);
+      await this.go(elementAllCommands, token2);
 
 
-      console.log('Следующим должен быть 2');
+
     }
 
   }
@@ -50,24 +49,27 @@ export class AppComponent {
     elementAllCommands.reqPars.forEach(elementReqPars => {
 
 
-      console.log('localStorage', localStorage.getItem('users'));
 
-      console.log('1');
+
       _.set(
         elementAllCommands,
         elementReqPars.pathValue,
-        _.get(
-          JSON.parse(localStorage.getItem(elementReqPars.readStorKey)),
-          elementReqPars.readStorePathValue,
-          elementReqPars.defValue
-        ));
+        elementReqPars.readStorePathValue ?
+          _.get(
+            JSON.parse(localStorage.getItem(elementReqPars.readStorKey)),
+            elementReqPars.readStorePathValue,
+            elementReqPars.defValue
+          ) :
+          JSON.parse(localStorage.getItem(elementReqPars.readStorKey)) ?
+           JSON.parse(localStorage.getItem(elementReqPars.readStorKey)) : elementReqPars.defValue
+      );
 
     });
 
-    this.apiService.connect(elementAllCommands.reqData.action, elementAllCommands.async, token, elementAllCommands.reqData)
-      .subscribe((connectValue$: any) => {
-        console.log('2');
-        // console.log(connectValue$);
+    await this.apiService.connect(elementAllCommands.reqData.action, elementAllCommands.async, token, elementAllCommands.reqData)
+      .toPromise().then((connectValue$: any) => {
+
+
         this.results.push(
           {
             description: elementAllCommands.description,
@@ -83,12 +85,14 @@ export class AppComponent {
 
           if ('addStorKey' in elementRespPars) {
             const object = new Object();
-            // console.log(elementRespPars.addStorKey.StorKey);
+            // tslint:disable-next-line: max-line-length
+            const other = elementRespPars.addStorKey.SructureKeyValue ? JSON.parse(elementRespPars.addStorKey.SructureKeyValue) : new Object();
+
             localStorage.setItem(
               elementRespPars.addStorKey.StorKey,
               JSON.stringify(
                 _.set(
-                  object,
+                  _.merge(object, other),
                   elementRespPars.addStorKey.PathStorKey,
                   _.get(
                     connectValue$,
@@ -101,7 +105,7 @@ export class AppComponent {
 
           // блок редактирования stor ключа  stor ключем
           if ('editStorKeyOfStorKey' in elementRespPars) {
-            // console.log('3');
+
 
             localStorage.setItem(
               elementRespPars.editStorKeyOfStorKey.StorKey,
@@ -150,7 +154,7 @@ export class AppComponent {
 
       }
         , (err) => {
-          console.log('2');
+
 
           this.results.push({
             description: elementAllCommands.description,

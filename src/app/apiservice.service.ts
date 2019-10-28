@@ -33,7 +33,7 @@ export class ApiService {
     return this._http.post<HttpResponseLogin>(this._url, JSON.stringify(body), { headers });
   }
 
-  public  connect(method, async, token, data) {
+  public  connect(method, async, token, data): Observable<any> {
     const headers: HttpHeaders = new HttpHeaders();
     headers.set('Content-Type', 'application/json');
     const body = {
@@ -42,7 +42,13 @@ export class ApiService {
       data: [data]
     };
 
-    return  this._http.post<HttpResponseLogin>(this._url, JSON.stringify(body), { headers });
+    return this._http.post<HttpResponseLogin>(
+      this._url, JSON.stringify(body), {
+      headers
+    }
+    );
+
+
   }
 
 
