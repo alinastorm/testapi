@@ -33,7 +33,8 @@ export class AppComponent {
 
   public async runTests(token) {
     const token2 = token;
-    // localStorage.clear();
+
+    localStorage.clear();
 
     for (const elementAllCommands of allcommands) {
 
@@ -46,9 +47,34 @@ export class AppComponent {
   }
   public async go(elementAllCommands, token) {
 
-    elementAllCommands.reqPars.forEach(elementReqPars => {
+    for (const elementReqPars of elementAllCommands.reqPars) {
 
 
+      console.log(elementReqPars.readStorKey);
+
+      // StartСondition
+      if ('StartСondition' in elementReqPars) {
+        if (!_.get(JSON.parse(localStorage.getItem(elementReqPars.StartСondition.StorKey)),
+          elementReqPars.StartСondition.PathStorKey,
+        )) {
+          console.log(!_.get(JSON.parse(localStorage.getItem(elementReqPars.StartСondition.StorKey)),
+            elementReqPars.StartСondition.PathStorKey,
+          ), 'StartСondition-breake');
+          continue;
+        }
+      }
+      // StopСondition
+      if ('StopСondition' in elementReqPars) {
+        // console.log((_.get(JSON.parse(localStorage.getItem(elementReqPars.StopСondition.StorKey)),
+        //   elementReqPars.StopСondition.PathStorKey,
+        // )));
+        if (_.get(JSON.parse(localStorage.getItem(elementReqPars.StopСondition.StorKey)),
+          elementReqPars.StopСondition.PathStorKey,
+        )) {
+          // console.log(elementReqPars.StorKey, 'StopСondition-break');
+          continue;
+        }
+      }
 
 
       _.set(
@@ -61,10 +87,10 @@ export class AppComponent {
             elementReqPars.defValue
           ) :
           JSON.parse(localStorage.getItem(elementReqPars.readStorKey)) ?
-           JSON.parse(localStorage.getItem(elementReqPars.readStorKey)) : elementReqPars.defValue
+            JSON.parse(localStorage.getItem(elementReqPars.readStorKey)) : elementReqPars.defValue
       );
 
-    });
+    }
 
     await this.apiService.connect(elementAllCommands.reqData.action, elementAllCommands.async, token, elementAllCommands.reqData)
       .toPromise().then((connectValue$: any) => {
@@ -81,13 +107,28 @@ export class AppComponent {
           }
         );
 
-        elementAllCommands.respPars.forEach(elementRespPars => {
+
+        for (const elementRespPars of elementAllCommands.respPars) {
+
 
           if ('addStorKey' in elementRespPars) {
+
+            if ('StartСondition' in elementRespPars.addStorKey) {
+
+              if (!_.get(JSON.parse(localStorage.getItem(elementRespPars.addStorKey.StartСondition.StorKey)),
+                elementRespPars.addStorKey.StartСondition.PathStorKey,
+                elementRespPars.addStorKey.StartСondition.defValue
+              ) === elementRespPars.addStorKey.StartСondition.CheckValue) {
+
+                continue;
+
+              }
+            }
+            // блок добавления ключа
             const object = new Object();
             // tslint:disable-next-line: max-line-length
             const other = elementRespPars.addStorKey.SructureKeyValue ? JSON.parse(elementRespPars.addStorKey.SructureKeyValue) : new Object();
-
+            console.log('connectValue$', connectValue$);
             localStorage.setItem(
               elementRespPars.addStorKey.StorKey,
               JSON.stringify(
@@ -101,6 +142,7 @@ export class AppComponent {
                 )
               )
             );
+
           }
 
           // блок редактирования stor ключа  stor ключем
@@ -149,7 +191,12 @@ export class AppComponent {
               )
             );
           }
-        });
+
+        }
+
+
+        // elementAllCommands.respPars.forEach(elementRespPars => {
+        // });
 
 
       }
